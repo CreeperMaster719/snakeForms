@@ -14,16 +14,14 @@ namespace snakeForms
     {
         int x = 100;
         int y = 100;
-        int width = 50;
-        int height = 50;
-        bool up = false;
-        bool down = false;
-        bool left = false;
-        bool right = false;
-        int length = 0;
+        int direction = 0;
+        int length = 50;
         Graphics gfx;
-        Bitmap canvas; 
+        Bitmap canvas;
         SnakePiece snakeHead;
+        List<SnakePiece> snakePieces = new List<SnakePiece>();
+        List<Food> foodchunks = new List<Food>();
+        Food firstfood;
         public Form1()
         {
             InitializeComponent();
@@ -32,66 +30,45 @@ namespace snakeForms
         private void Form1_Load(object sender, EventArgs e)
         {
             canvas = new Bitmap(PictureBox.Width, PictureBox.Height);
-
-             snakeHead = new SnakePiece(Brushes.Black, x, y, width, height, up, down, left, right, length);
-
+            snakeHead = new SnakePiece(Brushes.Black, x, y, direction, length);
             gfx = Graphics.FromImage(canvas);
+            firstfood = new Food(x, y, length - 30, Brushes.Red);
         }
         private void gameTime_Tick(object sender, EventArgs e)
         {
             gfx.Clear(Color.White);
+            snakeHead.Move(direction, length, Width, Height);
             snakeHead.Draw(gfx);
-            snakeHead.Move(up, down, left, right, length);
-
-
-
-
-
-            
+            firstfood.Draw(gfx);
+            //gfx.DrawEllipse(Pens.Green, 10, 10, 100, 100);
             PictureBox.Image = canvas;
-        }
-        private void snakeHead_Click(object sender, EventArgs e)
-        {
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
-        { 
-            if(e.KeyCode == Keys.Up)
+        {
+            if (e.KeyCode == Keys.Up)
             {
-                up = true;
+                direction = 0;
+            }
 
-            }
-            else
-            {
-                up = false;
-            }
             if (e.KeyCode == Keys.Down)
             {
-                down = true;
+                direction = 1;
+            }
 
-            }
-            else
-            {
-                down = false;
-            }
             if (e.KeyCode == Keys.Left)
             {
-                left = true;
+                direction = 2;
 
             }
-            else
-            {
-                left = false;
-            }
+
             if (e.KeyCode == Keys.Right)
             {
-                right = true;
+                direction = 3;
 
             }
-            else
-            {
-                right = false;
-            }
+
         }
 
 

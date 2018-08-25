@@ -13,66 +13,76 @@ namespace snakeForms
 
     public class SnakePiece
     {
-
         int x;
         int y;
-        int width;
-        int height;
-        bool up;
-        bool down;
-        bool left;
-        bool right;
+        int direction;
+
         int length;
         Brush color;
-        int tmp = 0;
+        int tmp = 20;
 
-        public SnakePiece(Brush color, int x, int y, int width, int height, bool up, bool down, bool left, bool right, int length)
+        public SnakePiece(Brush color, int x, int y, int direction, int length)
         {
             this.x = x;
             this.y = y;
-            this.width = width;
-            this.height = height;
-            this.up = up;
-            this.down = down;
-            this.left = left;
-            this.right = right;
             this.length = length;
             this.color = color;
+            this.direction = direction;
         }
 
         public void Draw(Graphics gfx)
         {
-            gfx.FillRectangle(color, x, y, width, height);
+            gfx.FillRectangle(color, x, y, length, length);
         }
-        public void Move(bool up, bool down, bool left, bool right, int length)
+        public void Move(int direction, int length, int formWidth, int formHeight)
         {
-            if(up)
+            if (direction == 0)
             {
-                tmp = height;
-                height = y;
-                y = y - tmp;
-                tmp = 0;
+                if (y + 20 < 0)
+                {
+                    y = formHeight;
+                }
+                else
+                {
+                    y = y - tmp;
+                }
             }
-            if(down)
+            if (direction == 1)
             {
-                tmp = y;
-                y = height;
-                height = height - tmp;
-                tmp = 0;
+
+                if (y - 20 > formHeight)
+                {
+                    y = 0;
+                }
+                else
+                {
+                    y = y + tmp;
+                }
             }
-            if(left)
+            if (direction == 2)
             {
-                tmp = width;
-                width = x;
-                x = x - tmp;
-                tmp = 0;
+                if (x + 20 < 0)
+                {
+                    x = formWidth;
+                }
+                else
+                {
+                    x = x - tmp;
+                }
+
             }
-            if(right)
+            if (direction == 3)
             {
-                tmp = x;
-                x = width;
-                width = width - tmp;
-                tmp = 0;
+
+                if (x - 20 > formWidth)
+                {
+                    x = 0;
+                }
+                else
+                {
+                    x = x + tmp;
+                }
+
             }
         }
     }

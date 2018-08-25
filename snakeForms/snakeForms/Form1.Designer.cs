@@ -37,7 +37,7 @@
             // gameTime
             // 
             this.gameTime.Enabled = true;
-            this.gameTime.Interval = 500;
+            this.gameTime.Interval = 1;
             this.gameTime.Tick += new System.EventHandler(this.gameTime_Tick);
             // 
             // PictureBox
@@ -45,7 +45,7 @@
             this.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox.Location = new System.Drawing.Point(0, 0);
             this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(1276, 686);
+            this.PictureBox.Size = new System.Drawing.Size(1264, 681);
             this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PictureBox.TabIndex = 0;
             this.PictureBox.TabStop = false;
@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1276, 686);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.PictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
