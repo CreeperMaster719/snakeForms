@@ -18,9 +18,9 @@ namespace snakeForms
         int length = 50;
         Graphics gfx;
         Bitmap canvas;
-        SnakePiece snakeHead;
+        Random gen;
         List<SnakePiece> snakePieces = new List<SnakePiece>();
-        List<Food> foodchunks = new List<Food>();
+
         Food firstfood;
         public Form1()
         {
@@ -29,17 +29,59 @@ namespace snakeForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            gen = new Random();
             canvas = new Bitmap(PictureBox.Width, PictureBox.Height);
-            snakeHead = new SnakePiece(Brushes.Black, x, y, direction, length);
+            snakePieces.Add(new SnakePiece(Brushes.Black, x, y, direction, length));
             gfx = Graphics.FromImage(canvas);
-            firstfood = new Food(x, y, length - 30, Brushes.Red);
+            firstfood = new Food(gen.Next(20, 1240), gen.Next(20, 590), length - 30, Brushes.Red);
+
         }
         private void gameTime_Tick(object sender, EventArgs e)
         {
             gfx.Clear(Color.White);
-            snakeHead.Move(direction, length, Width, Height);
-            snakeHead.Draw(gfx);
+
             firstfood.Draw(gfx);
+
+            //make a for loop that goes from the end of the snake to the beginning of the snake
+            //set the current pieces direction = to the piece behind it
+
+
+            for (int i = 0; i < snakePieces.Count; i++)
+            {
+                snakePieces[i].Move(length, Width, Height);
+            }
+            for (int i = snakePieces.Count - 1; i > 0; i--)
+            {
+                snakePieces[i].direction = snakePieces[i - 1].direction;
+            }
+            if (snakePieces[0].hitbox.IntersectsWith(firstfood.FoodBox))
+            {
+                SnakePiece newpiece = new SnakePiece(Brushes.Black, snakePieces[snakePieces.Count - 1].x, snakePieces[snakePieces.Count - 1].y, snakePieces[snakePieces.Count - 1].direction, length);
+
+                if (snakePieces[snakePieces.Count - 1].direction == 0)
+                {
+                    newpiece.y += length;
+                }
+                if (snakePieces[snakePieces.Count - 1].direction == 1)
+                {
+                    newpiece.y -= length;
+                }
+                if (snakePieces[snakePieces.Count - 1].direction == 2)
+                {
+                    newpiece.x += length;
+                }
+                if (snakePieces[snakePieces.Count - 1].direction == 3)
+                {
+                    newpiece.x -= length;
+                }
+
+                snakePieces.Add(newpiece);
+                firstfood.Move(gen);
+            }
+            for (int i = 0; i < snakePieces.Count; i++)
+            {
+                snakePieces[i].Draw(gfx);
+            }
             //gfx.DrawEllipse(Pens.Green, 10, 10, 100, 100);
             PictureBox.Image = canvas;
 
@@ -49,23 +91,23 @@ namespace snakeForms
         {
             if (e.KeyCode == Keys.Up)
             {
-                direction = 0;
+                snakePieces[0].direction = 0;
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                direction = 1;
+                snakePieces[0].direction = 1;
             }
 
             if (e.KeyCode == Keys.Left)
             {
-                direction = 2;
+                snakePieces[0].direction = 2;
 
             }
 
             if (e.KeyCode == Keys.Right)
             {
-                direction = 3;
+                snakePieces[0].direction = 3;
 
             }
 

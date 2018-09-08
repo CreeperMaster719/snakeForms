@@ -13,13 +13,13 @@ namespace snakeForms
 
     public class SnakePiece
     {
-        int x;
-        int y;
-        int direction;
-
-        int length;
-        Brush color;
-        int tmp = 20;
+        public int x;
+        public int y;
+        public int direction;
+        public Rectangle hitbox;        
+        public int length;
+        public Brush color;
+        
 
         public SnakePiece(Brush color, int x, int y, int direction, int length)
         {
@@ -28,14 +28,20 @@ namespace snakeForms
             this.length = length;
             this.color = color;
             this.direction = direction;
+
+            hitbox = new Rectangle(x, y, length, length);
         }
 
         public void Draw(Graphics gfx)
         {
             gfx.FillRectangle(color, x, y, length, length);
         }
-        public void Move(int direction, int length, int formWidth, int formHeight)
+
+        public void Move(int length, int formWidth, int formHeight)
         {
+            hitbox.X = x;
+            hitbox.Y = y;
+
             if (direction == 0)
             {
                 if (y + 20 < 0)
@@ -44,7 +50,7 @@ namespace snakeForms
                 }
                 else
                 {
-                    y = y - tmp;
+                    y = y - length;
                 }
             }
             if (direction == 1)
@@ -56,7 +62,7 @@ namespace snakeForms
                 }
                 else
                 {
-                    y = y + tmp;
+                    y = y + length;
                 }
             }
             if (direction == 2)
@@ -67,7 +73,7 @@ namespace snakeForms
                 }
                 else
                 {
-                    x = x - tmp;
+                    x = x - length;
                 }
 
             }
@@ -80,7 +86,7 @@ namespace snakeForms
                 }
                 else
                 {
-                    x = x + tmp;
+                    x = x + length;
                 }
 
             }

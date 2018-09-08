@@ -37,7 +37,7 @@
             // gameTime
             // 
             this.gameTime.Enabled = true;
-            this.gameTime.Interval = 1;
+            this.gameTime.Interval = 50;
             this.gameTime.Tick += new System.EventHandler(this.gameTime_Tick);
             // 
             // PictureBox
