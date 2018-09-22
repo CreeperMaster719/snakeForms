@@ -20,7 +20,6 @@ namespace snakeForms
         Bitmap canvas;
         Random gen;
         FullSnake Snake;
-        List<SnakePiece> snakePieces = new List<SnakePiece>();
 
         Food firstfood;
         public Form1()
@@ -32,7 +31,6 @@ namespace snakeForms
         {
             gen = new Random();
             canvas = new Bitmap(PictureBox.Width, PictureBox.Height);
-            snakePieces.Add(new SnakePiece(Brushes.Black, x, y, direction, length));
             gfx = Graphics.FromImage(canvas);
             firstfood = new Food(gen.Next(20, 1240), gen.Next(20, 590), length - 30, Brushes.Red);
             Snake = new FullSnake(Brushes.Black, x, y, direction, length);
@@ -42,34 +40,35 @@ namespace snakeForms
             gfx.Clear(Color.White);
 
             firstfood.Draw(gfx);
-
+            Snake.Draw(gfx);
             //make a for loop that goes from the end of the snake to the beginning of the snake
             //set the current pieces direction = to the piece behind it
 
+            /*
+                        for (int i = 0; i < snakePieces.Count; i++)
+                        {
+                            snakePieces[i].Move(length, Width, Height);
+                        }
+                        for (int i = snakePieces.Count - 1; i > 0; i--)
+                        {
+                            snakePieces[i].direction = snakePieces[i - 1].direction;
+                        }
+                        for (int i = 1; i < snakePieces.Count; i++)
+                        {
+                            if (snakePieces[0].hitbox.IntersectsWith(snakePieces[i].hitbox))
+                            {
+                                snakePieces[i].color = Brushes.Red;
+                                gameTime.Enabled = false;
+                            }
+                            else
+                            {
+                                snakePieces[i].color = Brushes.Black;
+                            }
+                            
 
-            for (int i = 0; i < snakePieces.Count; i++)
-            {
-                snakePieces[i].Move(length, Width, Height);
-            }
-            for (int i = snakePieces.Count - 1; i > 0; i--)
-            {
-                snakePieces[i].direction = snakePieces[i - 1].direction;
-            }
-            for (int i = 1; i < snakePieces.Count; i++)
-            {
-                if (snakePieces[0].hitbox.IntersectsWith(snakePieces[i].hitbox))
-                {
-                    snakePieces[i].color = Brushes.Red;
-                    gameTime.Enabled = false;
-                }
-                else
-                {
-                    snakePieces[i].color = Brushes.Black;
-                }
-
-
-            }
-            if (snakePieces[0].hitbox.IntersectsWith(firstfood.FoodBox))
+                        }*/
+            Snake.Update(Width, Height, gameTime.Enabled);
+            if (Snake.Head.hitbox.IntersectsWith(firstfood.FoodBox))
             {
                 /* SnakePiece newpiece = new SnakePiece(Brushes.Black, snakePieces[snakePieces.Count - 1].x, snakePieces[snakePieces.Count - 1].y, snakePieces[snakePieces.Count - 1].direction, length);
 
@@ -98,62 +97,58 @@ namespace snakeForms
             }
 
 
-            for (int i = 0; i < snakePieces.Count; i++)
-            {
-                snakePieces[i].Draw(gfx);
-            }
+            
             //gfx.DrawEllipse(Pens.Green, 10, 10, 100, 100);
             PictureBox.Image = canvas;
-
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (snakePieces.Count == 1)
+            if (Snake.Body.Count == 1)
             {
                 if (e.KeyCode == Keys.Up)
                 {
-                    snakePieces[0].direction = 0;
+                    Snake.Head.direction = 0;
                 }
 
                 if (e.KeyCode == Keys.Down)
                 {
-                    snakePieces[0].direction = 1;
+                    Snake.Head.direction = 1;
                 }
 
                 if (e.KeyCode == Keys.Left)
                 {
-                    snakePieces[0].direction = 2;
+                    Snake.Head.direction = 2;
 
                 }
 
                 if (e.KeyCode == Keys.Right)
                 {
-                    snakePieces[0].direction = 3;
+                    Snake.Head.direction = 3;
 
                 }
             }
             else
             {
-                if (e.KeyCode == Keys.Up && snakePieces[0].direction != 1)
+                if (e.KeyCode == Keys.Up && Snake.Head.direction != 1)
                 {
-                    snakePieces[0].direction = 0;
+                    Snake.Head.direction = 0;
                 }
 
-                if (e.KeyCode == Keys.Down && snakePieces[0].direction != 0)
+                if (e.KeyCode == Keys.Down && Snake.Head.direction != 0)
                 {
-                    snakePieces[0].direction = 1;
+                    Snake.Head.direction = 1;
                 }
 
-                if (e.KeyCode == Keys.Left && snakePieces[0].direction != 3)
+                if (e.KeyCode == Keys.Left && Snake.Head.direction != 3)
                 {
-                    snakePieces[0].direction = 2;
+                    Snake.Head.direction = 2;
 
                 }
 
-                if (e.KeyCode == Keys.Right && snakePieces[0].direction != 2)
+                if (e.KeyCode == Keys.Right && Snake.Head.direction != 2)
                 {
-                    snakePieces[0].direction = 3;
+                    Snake.Head.direction = 3;
 
                 }
             }
