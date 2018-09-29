@@ -28,7 +28,7 @@ namespace snakeForms
 
         }
         //Update - updates the direction of all the pieces in the body
-        public void Update(int formWidth, int formHeight, bool timer)
+        public bool Update(int formWidth, int formHeight)
         {
             for (int i = 0; i < Body.Count; i++)
             {
@@ -44,20 +44,22 @@ namespace snakeForms
                 {
                     if(Body[i].color == Brushes.Red)
                     {
-                        timer = false;
+                        return false;
                     }
                     Body[i].color = Brushes.Red;
                 }
                 else
                 {
-
+                    
                 }
+                
             }
+            return true;
         }
         public void NewPiece()
         {
 
-            SnakePiece newpiece = new SnakePiece(Brushes.Black, Body[Body.Count - 1].x, Body[Body.Count - 1].y, Body[Body.Count - 1].direction, Head.length);
+            SnakePiece newpiece = new SnakePiece(Brushes.Gray, Body[Body.Count - 1].x, Body[Body.Count - 1].y, Body[Body.Count - 1].direction, Head.length);
 
             if (Body[Body.Count - 1].direction == 0)
             {

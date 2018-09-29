@@ -61,12 +61,49 @@ namespace snakeForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Ali_A_intro__ear_rape__Bass_Boosted_ {
+            get {
+                return ResourceManager.GetStream("Ali_A_intro__ear_rape__Bass_Boosted_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap le_snek_pile {
+            get {
+                object obj = ResourceManager.GetObject("le_snek_pile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Minecraft_XP_Sound {
+            get {
+                return ResourceManager.GetStream("Minecraft_XP_Sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap snake_head {
             get {
                 object obj = ResourceManager.GetObject("snake_head", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Snake_hiss_sound_effect {
+            get {
+                return ResourceManager.GetStream("Snake_hiss_sound_effect", resourceCulture);
             }
         }
     }

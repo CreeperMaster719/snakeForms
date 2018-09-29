@@ -85,5 +85,17 @@
   <ItemGroup>
     <None Include="Resources\snake head.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\le snek pile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Snake hiss sound effect.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ali A intro %28ear rape%29%28Bass Boosted%29.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minecraft XP Sound.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace snakeForms
 {
@@ -20,7 +21,9 @@ namespace snakeForms
         Bitmap canvas;
         Random gen;
         FullSnake Snake;
-
+        SoundPlayer player = new SoundPlayer(Properties.Resources.Snake_hiss_sound_effect);
+        SoundPlayer loser = new SoundPlayer(Properties.Resources.Ali_A_intro__ear_rape__Bass_Boosted_);
+        SoundPlayer food = new SoundPlayer(Properties.Resources.Minecraft_XP_Sound);
         Food firstfood;
         public Form1()
         {
@@ -33,11 +36,12 @@ namespace snakeForms
             canvas = new Bitmap(PictureBox.Width, PictureBox.Height);
             gfx = Graphics.FromImage(canvas);
             firstfood = new Food(gen.Next(20, 1240), gen.Next(20, 590), length - 30, Brushes.Red);
-            Snake = new FullSnake(Brushes.Black, x, y, direction, length);
+            Snake = new FullSnake(Brushes.LawnGreen, x, y, direction, length);
+            player.PlayLooping();
         }
         private void gameTime_Tick(object sender, EventArgs e)
         {
-            gfx.Clear(Color.White);
+            gfx.Clear(Color.Transparent);
 
             firstfood.Draw(gfx);
             Snake.Draw(gfx);
@@ -67,9 +71,19 @@ namespace snakeForms
                             
 
                         }*/
-            Snake.Update(Width, Height, gameTime.Enabled);
+            if(Snake.Update(Width, Height))
+            {
+
+            }
+            else
+            {
+                player.Stop();
+                loser.PlayLooping();
+                gameTime.Enabled = false;
+            }
             if (Snake.Head.hitbox.IntersectsWith(firstfood.FoodBox))
             {
+                food.Play();
                 /* SnakePiece newpiece = new SnakePiece(Brushes.Black, snakePieces[snakePieces.Count - 1].x, snakePieces[snakePieces.Count - 1].y, snakePieces[snakePieces.Count - 1].direction, length);
 
                  if (snakePieces[snakePieces.Count - 1].direction == 0)
@@ -92,8 +106,11 @@ namespace snakeForms
 
                  snakePieces.Add(newpiece);
                  */
+
                 Snake.NewPiece();
                 firstfood.Move(gen);
+                
+                player.PlayLooping();
             }
 
 
